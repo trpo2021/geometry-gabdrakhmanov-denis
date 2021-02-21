@@ -1,2 +1,2 @@
 main: main.c
-	g++ main.c -Wall -Werror -L -o main
+	g++ main.c -Wall -Werror -L -o
