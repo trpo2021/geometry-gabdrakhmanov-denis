@@ -1,7 +1,8 @@
 *.o
-.main.c.swp
-main.c~
-#main.c#
+.main.cpp.swp
+main.cpp~
+#main.cpp#
 a.out
 main
 output
+.vscode
