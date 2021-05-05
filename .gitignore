@@ -1,4 +1,5 @@
 *.o
+*.d
 .main.cpp.swp
 main.cpp~
 #main.cpp#
