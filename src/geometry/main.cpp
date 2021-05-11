@@ -5,7 +5,7 @@
 #include <string.h>
 
 #include "circle_compute.h"
-#include "wkt_check.h"
+#include "lib_circle.h"
 
 using namespace std;
 
