@@ -1,262 +1,295 @@
 #include <iostream>
 #include <string.h>
-#include <lib_circle.h>
+#include <wkt_check.h>
 
 extern "C" {
 #include <ctest.h>
 }
 
-CTEST(suite, CorrectInputCheck)
+CTEST(input_suite, correct_input_check) // 1
 {
-   const char *CharFigure = "circle(13 14,8)";
-   int length = strlen(CharFigure);
-   const bool result = wkt_check(CharFigure, length);
-   ASSERT_TRUE(result);
+    const char* input_char = "circle(13 14,8)";
+
+    const bool result = wkt_check(input_char);
+
+    ASSERT_TRUE(result);
 }
 
-CTEST(suite, WrongFigureInputCheck)
+CTEST(input_suite, wrong_figure_input_check) // 2
 {
-   const char *CharFigure = "cirkle(13 14,8)";
-   int length = strlen(CharFigure);
-   const bool result = wkt_check(CharFigure, length);
-   ASSERT_FALSE(result);
+    const char* input_char = "cirkle(13 14,8)";
+
+    const bool result = wkt_check(input_char);
+
+    ASSERT_FALSE(result);
 }
 
-CTEST(suite, WrongCoordsInputCheck)
+CTEST(input_suite, wrong_coords_input_check) // 3
 {
-   const char *CharFigure = "circle(1314,8)";
-   int length = strlen(CharFigure);
-   const bool result = circle_wkt_check(CharFigure, length);
+    const char* input_char = "circle(1314,8)";
 
-   ASSERT_FALSE(result);
+    const bool result = wkt_check(input_char);
+
+    ASSERT_FALSE(result);
 }
 
-CTEST(suite, WrongRightBrackerInputCheck)
+CTEST(input_suite, wrong_right_bracket_input_check) // 4
 {
-   const char *CharFigure = "circle(13 14,8";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle(13 14,8";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_FALSE(result);
+    ASSERT_FALSE(result);
 }
 
-CTEST(suite, WrongLeftBrackerInputCheck)
+CTEST(input_suite, wrong_left_bracket_input_check) // 5
 {
-   const char *CharFigure = "circle13 14,8)";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle13 14,8)";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_FALSE(result);
+    ASSERT_FALSE(result);
 }
 
-CTEST(suite, ExtraSpacesInInput)
+CTEST(input_suite, extra_spaces_in_input) // 6
 {
-   const char *CharFigure = "circle (13 14,8)";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle (13 14,8)";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_FALSE(result);
+    ASSERT_FALSE(result);
 }
 
-CTEST(suite, LetterX)
+CTEST(input_suite, letter_in_x) // 7
 {
-   const char *CharFigure = "circle(1a3 14,8)";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle(1a3 14,8)";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_FALSE(result);
+    ASSERT_FALSE(result);
 }
 
-CTEST(suite, LetterY)
+CTEST(input_suite, letter_in_y) // 8
 {
-   const char *CharFigure = "circle(13 1c4,8)";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle(13 1c4,8)";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_FALSE(result);
+    ASSERT_FALSE(result);
 }
 
-CTEST(suite, LetterRad)
+CTEST(input_suite, letter_in_rad) // 9
 {
-   const char *CharFigure = "circle(13 14,8r)";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle(13 14,8r)";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_FALSE(result);
+    ASSERT_FALSE(result);
 }
 
-CTEST(suite, ExtraSpaceBeforeFigure)
+CTEST(input_suite, extra_space_before_figure) // 10
 {
-   const char *CharFigure = " circle(13 14,8)";
-   int length = strlen(CharFigure);
+    const char* input_char = " circle(13 14,8)";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_FALSE(result);
+    ASSERT_FALSE(result);
 }
 
-CTEST(suite, ExtraSpaceAfterFigure)
+CTEST(input_suite, extra_space_after_figure) // 11
 {
-   const char *CharFigure = "circle(13 14,8) ";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle(13 14,8) ";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_FALSE(result);
+    ASSERT_FALSE(result);
 }
 
-CTEST(suite, FigureWithoutParametres)
+CTEST(input_suite, figure_witout_parametres) // 12
 {
-   const char *CharFigure = "circle";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_FALSE(result);
+    ASSERT_FALSE(result);
 }
 
-CTEST(suite, ParametresWithoutFigure)
+CTEST(input_suite, parametres_witout_figure) // 13
 {
-   const char *CharFigure = "(13 14,8)";
-   int length = strlen(CharFigure);
+    const char* input_char = "(13 14,8)";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_FALSE(result);
+    ASSERT_FALSE(result);
 }
 
-CTEST(suite, ParametresWithoutX)
+CTEST(input_suite, parameteres_without_x) // 14
 {
-   const char *CharFigure = "circle(14,8)";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle( 14,8)";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_FALSE(result);
+    ASSERT_FALSE(result);
 }
 
-CTEST(suite, ParametresWithoutY)
+CTEST(input_suite, parameteres_without_y) // 15
 {
-   const char *CharFigure = "circle(13 ,8)";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle(13 ,8)";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_FALSE(result);
+    ASSERT_FALSE(result);
 }
 
-CTEST(suite, ParametresWithoutRad)
+CTEST(input_suite, parameteres_without_rad) // 16
 {
-   const char *CharFigure = "circle(13 14)";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle(13 14)";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_FALSE(result);
+    ASSERT_FALSE(result);
 }
 
-CTEST(suite, floatX)
+CTEST(input_suite, float_x) // 17
 {
-   const char *CharFigure = "circle(1.3 14,8)";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle(1.3 14,8)";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_TRUE(result);
+    ASSERT_TRUE(result);
 }
 
-CTEST(suite, floatY)
+CTEST(input_suite, float_y) // 18
 {
-   const char *CharFigure = "circle(13 1.4,8)";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle(13 1.4,8)";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_TRUE(result);
+    ASSERT_TRUE(result);
 }
 
-CTEST(suite, floatRad)
+CTEST(input_suite, float_rad) // 19
 {
-   const char *CharFigure = "circle(13 14,0.8)";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle(13 14,0.8)";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_TRUE(result);
+    ASSERT_TRUE(result);
 }
 
-CTEST(suite, floatAll)
+CTEST(input_suite, float_all) // 20
 {
-   const char *CharFigure = "circle(1.3 1.4,0.8)";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle(1.3 1.4,0.8)";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_TRUE(result);
+    ASSERT_TRUE(result);
 }
 
-CTEST(suite, negativeX)
+CTEST(input_suite, negative_x) // 21
 {
-   const char *CharFigure = "circle(-13 14,8)";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle(-13 14,8)";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_TRUE(result);
+    ASSERT_FALSE(result);
 }
 
-CTEST(suite, negativeY)
+CTEST(input_suite, negative_y) // 22
 {
-   const char *CharFigure = "circle(13 -14,8)";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle(13 -14,8)";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_TRUE(result);
+    ASSERT_FALSE(result);
 }
 
-CTEST(suite, negativeRad)
+CTEST(input_suite, negative_rad) // 23
 {
-   const char *CharFigure = "circle(13 14,-8)";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle(13 14,-8)";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_FALSE(result);
+    ASSERT_FALSE(result);
 }
 
-CTEST(suite, NegativeXExtraSpace)
+CTEST(input_suite, negative_x_extra_space) // 24
 {
-   const char *CharFigure = "circle(- 13 14,8)";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle(- 13 14,8)";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_FALSE(result);
+    ASSERT_FALSE(result);
 }
 
-CTEST(suite, NegativeYExtraSpace)
+CTEST(input_suite, negative_y_extra_space) // 25
 {
-   const char *CharFigure = "circle(13 - 14,8)";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle(13 - 14,8)";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_FALSE(result);
+    ASSERT_FALSE(result);
 }
 
-CTEST(suite, NegativeRadExtraSpace)
+CTEST(input_suite, negative_rad_extra_space) // 26
 {
-   const char *CharFigure = "circle(13 14,- 8)";
-   int length = strlen(CharFigure);
+    const char* input_char = "circle(13 14,- 8)";
 
-   const bool result = circle_wkt_check(CharFigure, length);
+    const bool result = wkt_check(input_char);
 
-   ASSERT_FALSE(result);
+    ASSERT_FALSE(result);
+}
+
+CTEST(input_suite, no_left_bracket) // 27
+{
+    const char* input_char = "circle13 14,8)";
+
+    const bool result = wkt_check(input_char);
+
+    ASSERT_FALSE(result);
+}
+
+CTEST(input_suite, no_right_bracket) // 28
+{
+    const char* input_char = "circle13 14,8)";
+
+    const bool result = wkt_check(input_char);
+
+    ASSERT_FALSE(result);
+}
+
+CTEST(input_suite, no_comma) // 29
+{
+    const char* input_char = "circle(13 148)";
+
+    const bool result = wkt_check(input_char);
+
+    ASSERT_FALSE(result);
+}
+
+CTEST(input_suite, no_space) // 30
+{
+    const char* input_char = "circle(1314,8)";
+
+    const bool result = wkt_check(input_char);
+
+    ASSERT_FALSE(result);
+}
+
+CTEST(input_suite, too_big_values) // 31
+{
+    const char* input_char = "circle(131313131313 141414141414,88888888888)";
+
+    const bool result = wkt_check(input_char);
+
+    ASSERT_TRUE(result);
+}
+
+CTEST(input_suite, too_small_values) // 32
+{
+    const char* input_char = "circle(0.0000000013 0.0000000014,0.000000008)";
+
+    const bool result = wkt_check(input_char);
+
+    ASSERT_TRUE(result);
 }
