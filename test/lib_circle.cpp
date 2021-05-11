@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string.h>
-#include <wkt_check.h>
+#include <lib_circle.h>
 
 extern "C" {
 #include <ctest.h>
