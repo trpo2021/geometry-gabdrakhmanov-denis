@@ -1,6 +1,6 @@
 #include <iostream>
-#include <string.h>
 #include <lib_circle.h>
+#include <string.h>
 
 extern "C" {
 #include <ctest.h>
