@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "circle_compute.h"
 #include "lib_circle.h"
 
 using namespace std;
