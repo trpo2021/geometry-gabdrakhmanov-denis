@@ -1,7 +1,12 @@
 *.o
 .main.c.swp
-main.c~
-#main.c#
+main.c~main.c
+.main.cpp.swp
+main.cpp~
+*.a
+*.d
+bin/geometry
+bin/geometry-test
 a.out
-main
 output
+.vscode
